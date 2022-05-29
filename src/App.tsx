@@ -7,14 +7,23 @@ import {library} from "@fortawesome/fontawesome-svg-core";
 import {fas} from "@fortawesome/free-solid-svg-icons";
 import Transition from "./components/Transition/transition";
 import Input from "./components/Input/input";
+import {AutoComplete} from "./components/AutoComplete/autoComplete";
 
 library.add(fas)
+
+const lakers = ['bradley', 'pope', 'caruso', 'cook', 'cousins',
+    'james', 'AD', 'green', 'howard', 'kuzma', 'McGee', 'rando']
+
+const handleFetch = (query: string) => {
+    return lakers.filter(name => name.includes(query))
+}
 
 function App() {
     const [show, setShow] = useState(false);
     return (
-        <>
+        < >
             <Input icon="search" ></Input>
+            <AutoComplete fetchSuggestions={handleFetch}/>
             <Menu onSelect={index => alert(index)} defaultOpenSubMenu={['2']}>
                 <MenuItem>link1</MenuItem>
                 <MenuItem disabled>
