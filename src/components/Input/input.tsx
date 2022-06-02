@@ -17,7 +17,7 @@ export interface InputProps extends Omit<InputHTMLAttributes<HTMLElement>, 'size
 
 export const Input: React.FC<InputProps> = (props) => {
     // attribute
-    const {disabled, size, icon, prepend, append, className, children, style, ...restProps} = props
+    const {disabled, size, icon, prepend, append, className, children, style, value, ...restProps} = props
 
     // className
     const classes = classNames("viking-input-wrapper", className, {
@@ -28,16 +28,6 @@ export const Input: React.FC<InputProps> = (props) => {
         'input-group-prepend': !!prepend
     })
 
-    const fixControlledValue = (value: any) => {
-        if (typeof value === 'undefined' || 'null') {
-            return
-        }
-        return value
-    }
-    if ('value' in props) {
-        delete restProps.defaultValue
-        restProps.value = fixControlledValue(props.value)
-    }
     return (
         <div>
             <div className={classes} style={style}>
@@ -46,6 +36,7 @@ export const Input: React.FC<InputProps> = (props) => {
                 <input
                     className="viking-input-inner"
                     disabled={disabled}
+                    value={value}
                     {...restProps}
                 />
                 {append && <div className="viking-input-group-append">{append}</div>}
